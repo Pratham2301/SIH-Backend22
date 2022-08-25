@@ -92,10 +92,12 @@ def login_by_email(email,password):
 def city_count(email):
     user_id = email.split("@")[0]
     user = db.collection('users').document(user_id).get()
-    userdata=user.to_dict()  
+    userdata = user.to_dict()  
     print(userdata['curr_city'])
     print("---------------------------------")
     return userdata['curr_city']
+
+###############################################################################
 
 def city_incre(email):
     user_id = email.split("@")[0]
@@ -104,3 +106,5 @@ def city_incre(email):
     userdata=user.to_dict() 
     print(userdata['curr_city'])
     print("---------------------------------")
+    
+###############################################################################

@@ -26,7 +26,10 @@ urlpatterns = [
 
 	path('register',views.register),
 	path('login',views.login),
+
     path('city_api',views.city_api),
     path('city_increment',views.city_increment),
+    
+    path('update_score',views.update_Score)
 
 ]

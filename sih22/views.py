@@ -111,10 +111,13 @@ def city_api(request):
         email=data['email']
         count=city_count(email)
         data_return={"city":count}
-        return Response(data_return)
+        return Response(data_return, status=status.HTTP_200_OK)
     else:
         return Response("INVALID SERIALIZED DATA", status=status.HTTP_400_BAD_REQUEST)
-    
+
+###############################################################################
+
+
 @api_view(['POST'])
 def city_increment(request):
     """
@@ -123,10 +126,44 @@ def city_increment(request):
     }
     """
     serializer = CityIncrSerializer(data=request.data)
+    
     if serializer.is_valid():
         data = serializer.data
         email=data['email']
         city_incre(email)
-        return Response("City Incremented")
+        return Response("City Incremented", status=status.HTTP_200_OK)
     else:
         return Response("INVALID SERIALIZED DATA", status=status.HTTP_400_BAD_REQUEST)
+    
+###############################################################################
+
+@api_view(['POST'])
+def update_Score(request):
+    """
+    {
+        "email": "demouser1@gmail.com",
+        "gamenumber": 1
+    }
+    """
+    
+    serializer = UpdateScoreSerializer(data=request.data)
+
+    if serializer.is_valid():
+        data = serializer.data
+        
+        email = data['email']
+        gamenum = data['gamenumber']
+        
+        citycount=city_count(email)
+        user_id = email.split("@")[0]
+        
+        index = (citycount * 3) + gamenum - 1
+        
+        user=db.collection('users').document(user_id)
+        user.update({"india_game_status[1]": 1})
+        
+        return Response("Score Updated", status=status.HTTP_200_OK)
+    else:
+        return Response("INVALID SERIALIZED DATA", status=status.HTTP_400_BAD_REQUEST)
+
+###############################################################################

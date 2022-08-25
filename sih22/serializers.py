@@ -18,6 +18,22 @@ class LoginSerializer(serializers.Serializer):
 
 class CityCountSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length = 100)
-    
+
+###############################################################################
+
+
 class CityIncrSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length = 100)
+    
+###############################################################################
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length = 100)
+    
+###############################################################################
+
+class UpdateScoreSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length = 100)
+    gamenumber = serializers.IntegerField()
+    
+###############################################################################
